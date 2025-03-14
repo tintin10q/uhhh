@@ -1,103 +1,207 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { SessionData } from "@/types";
+import { endCurrentActiveSession, getSessions } from "@/lib/session-utils";
+import ActiveSession from "@/components/ActiveSession";
+import SessionStats from "@/components/SessionStats";
+import SessionList from "@/components/SessionList";
+import NewSessionForm from "@/components/NewSessionForm";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Github, Sun } from "lucide-react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [sessions, setSessions] = useState<SessionData[]>([]);
+  const [activeTab, setActiveTab] = useState<string>("dashboard");
+  const [selectedSession, setSelectedSession] = useState<SessionData | null>(
+    null
+  );
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  // Close an active session if it's the first time the page is opened
+  if (typeof window !== "undefined" && !sessionStorage.getItem("openedAt")) {
+    sessionStorage.setItem("openedAt", Date.now().toString());
+    endCurrentActiveSession();
+  }
+
+  // Safe the time when the page is closed so we can close the active session if needed
+  useEffect(() => {
+    function handleBeforeUnload() {
+      localStorage.setItem("closedAt", Date.now().toString());
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  // Load sessions from localStorage
+  const loadSessions = useCallback(() => {
+    const loadedSessions = getSessions();
+    setSessions(loadedSessions);
+
+    // Check if there's an active session
+    const activeSession = loadedSessions.find((s) => s.endTime === null);
+    if (activeSession) {
+      setActiveSessionId(activeSession.id);
+
+      // If current tab is 'new', switch to 'active' when an active session is found
+      if (activeTab === "new") {
+        setActiveTab("active");
+      }
+    } else {
+      setActiveSessionId(null);
+
+      // If there are no sessions, default to 'new' tab
+      if (
+        loadedSessions.length === 0 &&
+        (activeTab === "dashboard" || activeTab === "stats")
+      ) {
+        setActiveTab("new");
+      }
+    }
+  }, [activeTab]);
+
+  // Load sessions on initial render
+  useEffect(() => {
+    loadSessions();
+  }, [loadSessions]);
+
+  // Update activeTab if it's 'new' and there's an active session
+  useEffect(() => {
+    if (activeSessionId && activeTab === "new") {
+      setActiveTab("active");
+    }
+
+    // If there are no sessions, switch to 'new' tab
+    if (
+      sessions.length === 0 &&
+      (activeTab === "dashboard" || activeTab === "stats")
+    ) {
+      setActiveTab("new");
+    }
+  }, [activeSessionId, activeTab, sessions.length]);
+
+  // Handle session creation
+  function handleSessionCreated(sessionId: string) {
+    loadSessions();
+    setActiveSessionId(sessionId);
+    setActiveTab("active");
+  };
+
+  // Handle session end
+  function handleSessionEnd() {
+    loadSessions();
+    setActiveSessionId(null);
+    setActiveTab("dashboard");
+  };
+
+  // Handle session selection for viewing stats
+  function handleSessionSelect(session: SessionData)  {
+    setSelectedSession(session);
+    setActiveTab("stats");
+  };
+
+  // Get the active session
+  const activeSession = sessions.find((s) => s.id === activeSessionId);
+
+  // Determine if we should show dashboard and stats tabs
+  const hasAnySessions = sessions.length > 0;
+
+  return (
+    <main className="min-h-screen bg-background">
+      <div className="container mx-auto py-8 px-4">
+        <header className="mb-8">
+          <div className="flex justify-end gap-2 mb-4">
+            <ThemeToggle />
+          <Button variant="outline" size="icon" className="rounded-full" onClick={() => window.open("https://github.com/tintin10q/uhhh", "_blank")}>
+            <Github className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-360 dark:scale-100" />
+            <span className="sr-only">Open Github</span>
+          </Button>
+          </div>
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight">
+              Filler Word Counter
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Track &ldquo;uhh&rdquo; filler words during public speaking
+            </p>
+          </div>
+        </header>
+
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full max-w-3xl mx-auto"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          {hasAnySessions && (
+            <div className="flex justify-between items-center mb-4">
+              <TabsList>
+                {<TabsTrigger value="dashboard">Dashboard</TabsTrigger>}
+                {activeSessionId && (
+                  <TabsTrigger value="active">
+                    Active Session{" "}
+                    {activeSession?.name ? `(${activeSession.name})` : ""}
+                  </TabsTrigger>
+                )}
+                {!activeSessionId && (
+                  <TabsTrigger value="new">New Session</TabsTrigger>
+                )}
+              </TabsList>
+
+              {!activeSessionId && (
+                <Button onClick={() => setActiveTab("new")}>
+                  Start New Session
+                </Button>
+              )}
+            </div>
+          )}
+
+          {hasAnySessions && (
+            <TabsContent value="dashboard" className="mt-0">
+              <SessionList
+                sessions={sessions}
+                onSessionSelect={handleSessionSelect}
+                onSessionsChange={loadSessions}
+              />
+            </TabsContent>
+          )}
+
+          <TabsContent value="active" className="mt-0">
+            {activeSession && (
+              <ActiveSession
+                session={activeSession}
+                onSessionEnd={handleSessionEnd}
+              />
+            )}
+          </TabsContent>
+
+          <TabsContent value="stats" className="mt-0">
+            {selectedSession && <SessionStats session={selectedSession} />}
+          </TabsContent>
+
+          {!activeSessionId && (
+            <TabsContent value="new" className="mt-0">
+              <NewSessionForm onSessionCreated={handleSessionCreated} />
+            </TabsContent>
+          )}
+        </Tabs>
+
+        <div className="p-8"></div>
+        <Separator className="my-8" />
+
+        <footer className="text-center text-sm text-muted-foreground">
+          <p>
+            Filler Word Counter by Quinten Cabo &copy;{" "}
+            {new Date().getFullYear()}
+          </p>
+          <p className="mt-1">
+            Track your &ldquo;uhh&rdquo; filler words to improve your public
+            speaking skills.
+          </p>
+        </footer>
+      </div>
+    </main>
   );
 }

@@ -1,0 +1,86 @@
+{
+  "name": "Filler Word Counter",
+  "short_name": "Uhh Counter",
+  "description": "Track and analyze filler words like 'uhh' during public speaking",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#5744E6",
+  "categories": ["productivity", "utilities", "education"], 
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/monochrome-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "monochrome"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/wide-active.webp",
+      "sizes": "1520x1069",
+      "type": "image/webp",
+      "form_factor":"wide"
+    },
+    {
+      "src": "/screenshots/wide-list.webp",
+      "sizes": "1520x1069",
+      "type": "image/webp",
+      "form_factor":"wide"
+    },
+    {
+      "src": "/screenshots/wide-active.png",
+      "sizes": "1520x1069",
+      "type": "image/png",
+      "form_factor":"wide"
+    },
+    {
+      "src": "/screenshots/wide-list.png",
+      "sizes": "1520x1069",
+      "type": "image/png",
+      "form_factor":"wide"
+    },
+    {
+      "src": "/screenshots/narrow-active.webp",
+      "sizes": "444x986",
+      "type": "image/webp",
+      "form_factor":"narrow"
+    },
+    {
+      "src": "/screenshots/narrow-list.webp",
+      "sizes": "444x986",
+      "type": "image/webp",
+      "form_factor":"narrow"
+    },
+    {
+      "src": "/screenshots/narrow-active.png",
+      "sizes": "444x986",
+      "type": "image/png",
+      "form_factor":"narrow"
+    },
+    {
+      "src": "/screenshots/narrow-list.png",
+      "sizes": "444x986",
+      "type": "image/png",
+      "form_factor":"narrow"
+    }
+  ]
+} 

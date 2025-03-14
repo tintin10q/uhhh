@@ -1,38 +1,96 @@
-# uhhh
-Track and analyze filler words like 'uhh' during public speaking
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Filler Word Counter 
+
+A web application to help speakers track and analyze filler words like "uhh" during presentations and public speaking sessions. 
+Improve your speaking skills by becoming aware of your filler word usage patterns.
+
+## Features
+
+- **Real-time Tracking**: Track "uhh" filler words in real-time with simple button presses
+- **Comprehensive Statistics**:
+  - Total filler word count
+  - Average filler words per minute
+  - Peak usage identification (highest number of filler words in a minute)
+  - Clean minutes tracking (minutes with zero filler words)
+  - Worst minute identification
+- **Visual Analytics**: Visualize filler word usage with interactive histograms
+- **Session Management**:
+  - Create multiple named sessions
+  - View active and completed sessions
+  - End active sessions when complete
+  - Delete individual sessions
+  - Bulk delete all sessions
+- **Persistent Storage**: All data is stored in localStorage for convenience
+- **Responsive Design**: Works on desktop and mobile devices
+- **Dark/Light Mode**: Supports system theme preferences
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18.0 or later
+- npm or bun
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/filler-word-counter.git
+   cd filler-word-counter
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
 
-## Learn More
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   bun dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Start a New Session**:
+   - Click "Start New Session" on the homepage
+   - Enter a descriptive name for your session (e.g., "Practice Presentation")
+   - Click "Start" to begin tracking
 
-## Deploy on Vercel
+2. **During Your Speech**:
+   - Press the "Uhh" button each time you use this filler word
+   - The application will record the timestamp and update statistics in real-time
+   - View the live histogram to see your filler word distribution
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **End Your Session**:
+   - Click "End Session" when your speech is complete
+   - Review your detailed statistics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Analyze Your Results**:
+   - View comprehensive statistics for each session
+   - Identify patterns in your filler word usage
+   - Track improvement over time by comparing multiple sessions
+
+5. **Manage Sessions**:
+   - View all sessions in the Session History
+   - Click "View" to see detailed statistics for any session
+   - Delete unwanted sessions using the trash icon
+   - Use "Delete All" to remove all sessions at once
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) - React framework for production
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - Accessible and customizable UI components
+- [Lucide Icons](https://lucide.dev/) - Beautiful open-source icons
+- [Recharts](https://recharts.org/) - Composable charting library for React
+
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

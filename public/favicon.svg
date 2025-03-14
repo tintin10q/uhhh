@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <bx:export>
+      <bx:file format="png" path="icon.png" width="192" height="192"/>
+      <bx:file format="png" path="apple-touch-icon.png" width="180" height="180"/>
+      <bx:file format="png" path="favicon.png"/>
+    </bx:export>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+  <path d="M26 14c0 5.523-4.477 10-10 10-1.763 0-3.414-0.458-4.85-1.258L6 26l3.258-5.15C8.458 19.414 8 17.763 8 16c0-5.523 4.477-10 10-10s8 8 8 8z" fill="white" fill-opacity="0.9"/>
+  <text x="16" y="18" font-family="Arial, sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#4f46e5" style="white-space: pre;">uhh</text>
+</svg>
