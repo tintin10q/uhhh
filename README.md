@@ -41,7 +41,7 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/filler-word-counter.git
+   git clone https://github.com/tintin10q/filler-word-counter.git
    cd filler-word-counter
    ```
 
