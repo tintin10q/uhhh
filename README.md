@@ -1,7 +1,12 @@
 # Filler Word Counter 
 
-A web application to help speakers track and analyze filler words like "uhh" during presentations and public speaking sessions. 
+A simple web application to help speakers track and analyze filler words like "uhh" during presentations and public speaking sessions. 
 Improve your speaking skills by becoming aware of your filler word usage patterns.
+
+<div style="display: flex; ">
+<div><img src="./public/screenshots/wide-active-light.png"></div>
+<div><img src="./public/screenshots/wide-list-dark.png"></div>
+</div>
 
 ## Features
 
@@ -19,7 +24,9 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
   - End active sessions when complete
   - Delete individual sessions
   - Bulk delete all sessions
-- **Persistent Storage**: All data is stored in localStorage for convenience
+- **Persistent Storage**: 
+   - All data is stored in localStorage 
+   - Detection if you forgot to stop a session
 - **Responsive Design**: Works on desktop and mobile devices
 - **Dark/Light Mode**: Supports system theme preferences
 
@@ -62,7 +69,7 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
    - Click "Start" to begin tracking
 
 2. **During Your Speech**:
-   - Press the "Uhh" button each time you use this filler word
+   - Press the "Uhh" button each time you or the speaker uses a filler word
    - The application will record the timestamp and update statistics in real-time
    - View the live histogram to see your filler word distribution
 
@@ -78,7 +85,7 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
 5. **Manage Sessions**:
    - View all sessions in the Session History
    - Click "View" to see detailed statistics for any session
-   - Delete unwanted sessions using the trash icon
+   - Delete sessions using the trash icon
    - Use "Delete All" to remove all sessions at once
 
 ## Technologies Used
@@ -88,7 +95,6 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - Accessible and customizable UI components
 - [Lucide Icons](https://lucide.dev/) - Beautiful open-source icons
-- [Recharts](https://recharts.org/) - Composable charting library for React
 
 
 ## Contributing
