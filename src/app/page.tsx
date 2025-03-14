@@ -11,7 +11,7 @@ import SessionStats from "@/components/SessionStats";
 import SessionList from "@/components/SessionList";
 import NewSessionForm from "@/components/NewSessionForm";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Github, Sun } from "lucide-react";
+import { Github } from "lucide-react";
 
 export default function Home() {
   const [sessions, setSessions] = useState<SessionData[]>([]);

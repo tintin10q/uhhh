@@ -4,15 +4,12 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { SessionData, FillerWordEvent } from "@/types";
 import {
   addFillerWordEvent,
   endSession,
   calculateSessionStats,
-  formatDuration,
 } from "@/lib/session-utils";
 import { UhhBarChart } from "./UhhBarChart";
 

@@ -30,8 +30,8 @@ export function endCurrentActiveSession() {
   const sessions = getSessions();
   const activeSession = sessions.find((s) => s.endTime === null);
   if (activeSession) {
-    let closed_at = localStorage.getItem("closedAt");
-    let closed_at_num = closed_at ? parseInt(closed_at) : Date.now();
+    const closed_at = localStorage.getItem("closedAt");
+    const closed_at_num = closed_at ? parseInt(closed_at) : Date.now();
     activeSession.endTime = closed_at_num;
     saveSessions(sessions);
   }
