@@ -95,6 +95,7 @@ Improve your speaking skills by becoming aware of your filler word usage pattern
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - Accessible and customizable UI components
 - [Lucide Icons](https://lucide.dev/) - Beautiful open-source icons
+- [Recharts](https://recharts.org/) - Composable charting library for React
 
 
 ## Contributing
