@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
   },
   manifest: '/manifest.json',
-  themeColor: '#4f46e5',
   applicationName: "Uhh Counter",
   appleWebApp: {
     capable: true,
@@ -26,16 +25,15 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1.0
-  },
   creator: "Quinten Cabo",
   keywords: ['public speaking', 'filler words', 'uhh counter', 'speech analysis', 'communication skills'],
 };
 
 export const viewport : Viewport = {
   colorScheme: "light dark",
+  themeColor: '#4f46e5',
+  width: 'device-width',
+  initialScale: 1.0
 }
 
 export default function RootLayout({
