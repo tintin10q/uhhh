@@ -1,7 +1,10 @@
 # Filler Word Counter 
 
 A simple web application to help speakers track and analyze filler words like "uhh" during presentations and public speaking sessions. 
-Improve your speaking skills by becoming aware of your filler word usage patterns.
+Improve your speaking skills by becoming aware of filler word usage patterns.
+
+I deliberately did not add automatic uhh detection (machine learning based or otherwise) to this app. 
+The point is that the person who records the filler words improves by listening for them.
 
 <div style="display: flex; ">
 <div><img src="./public/screenshots/wide-active-light.png"></div>
