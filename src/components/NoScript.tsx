@@ -1,7 +1,7 @@
 export function NoScript() {
   return (
     <noscript>
-      <b>Filler Words Counter</b> doesn't work properly without JavaScript
+      <b>Filler Words Counter</b> doesn&apos;t work properly without JavaScript
       enabled. Please enable it to continue. <br />
       <br />
       Below are instructions on how to enable enable JavaScript. After you have
