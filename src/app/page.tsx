@@ -12,6 +12,7 @@ import SessionList from "@/components/SessionList";
 import NewSessionForm from "@/components/NewSessionForm";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Github } from "lucide-react";
+import { NoScript } from "@/components/NoScript";
 
 export default function Home() {
   const [sessions, setSessions] = useState<SessionData[]>([]);
@@ -129,6 +130,8 @@ export default function Home() {
             </p>
           </div>
         </header>
+
+        <NoScript />
 
         <Tabs
           value={activeTab}
