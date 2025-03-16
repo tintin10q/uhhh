@@ -108,16 +108,25 @@ export default function ActiveSession({
             </div>
           </div>
         </div>
-
+        <div className="flex gap-4"> 
         <UhhBarChart
           data={stats.minuteByMinuteData}
           currentMinute={currentMinute}
         />
+        <div className="[@media(orientation:landscape)_and_(max-height:415px)]:block hidden">
+          <Button
+            className="h-full text-2xl font-bold bg-red-400 hover:bg-red-500 dark:bg-blue-400 hover:dark:bg-blue-500 h-full"
+            onClick={handleUhhClick}
+          >
+            Uhhhh
+          </Button>
+        </div>
+        </div>
 
-        <div className="pt-4">
+        <div className="pt-4 [@media(orientation:landscape)_and_(max-height:415px)]:hidden">
           <Button
             size="lg"
-            className="h-24 text-2xl font-bold bg-red-400 hover:bg-red-500 dark:bg-blue-400 hover:dark:bg-blue-500 w-full"
+            className="h-24 text-2xl  font-bold bg-red-400 hover:bg-red-500 dark:bg-blue-400 hover:dark:bg-blue-500 w-full"
             onClick={handleUhhClick}
           >
             Uhhhh

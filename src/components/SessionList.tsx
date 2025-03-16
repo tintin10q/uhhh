@@ -22,6 +22,7 @@ import {
 import { Trash2 } from "lucide-react";
 import { formatDate, formatTime } from "@/lib/utils";
 import { Badge } from "./ui/badge";
+import { StatsText } from "./StatsText";
 
 interface SessionListProps {
   sessions: SessionData[];
@@ -109,18 +110,6 @@ export default function SessionList({
               const stats = calculateSessionStats(session);
               const isActive = session.endTime === null;
 
-              const peak = Math.max(
-                ...stats.minuteByMinuteData.map((d) => d.uhh)
-              );
-              const worst =
-                1 +
-                stats.minuteByMinuteData.reduce(
-                  (worst, current, idx) =>
-                    current.uhh > stats.minuteByMinuteData[worst].uhh
-                      ? idx
-                      : worst,
-                  0
-                );
               return (
                 <div
                   key={session.id}
@@ -128,7 +117,7 @@ export default function SessionList({
                     isActive ? "border-primary" : "border-border"
                   }`}
                 >
-                  <div className="flex justify-between items-center">
+                  <div className="flex items-center  justify-between [@media(max-width:480px)]:justify-center">
                     <div>
                       <h3 className="font-medium flex items-center">
                         {session.name}
@@ -201,64 +190,67 @@ export default function SessionList({
                       )}
                     </div>
                     {!isActive && (
-                      <>
-                        {stats.totalUhh > 0 &&
-                        stats.minuteByMinuteData.length > 0 ? (
-                          <div className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                            <div className="flex justify-between">
-                              <span>
-                                <b>Peak of {peak} uhhs</b> in minute{" "}
-                                <b>{worst}</b> /{" "}
-                                {stats.minuteByMinuteData.length}
-                              </span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span>
-                                <b>
-                                  {
-                                    stats.minuteByMinuteData.filter(
-                                      (d) => d.uhh === 0
-                                    ).length
-                                  }{" "}
-                                  clean minutes
-                                </b>{" "}
-                                without uhh
-                              </span>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2 text-lg">
-                            <span className="text-2xl">🎉</span>
-                            <span className="font-medium bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
-                              Zero uhhh!
-                            </span>
-                          </div>
-                        )}
-                      </>
+                      <div className="[@media(orientation:portrait)_and_(max-width:481px)]:hidden">
+                        <StatsText stats={stats}></StatsText>
+                      </div>
                     )}
                     <div className="flex space-x-4 self-center">
-                      {isActive && (
+                      {isActive ? (
                         <Button
                           variant="outline"
                           size="lg"
                           onClick={() => {
                             handleEndSession(session.id);
                           }}
-                          className="self-center"
+                          className="self-center [@media(orientation:portrait)_and_(max-width:481px)]:hidden"
                         >
                           End Session
                         </Button>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={() => onSessionSelect(session)}
+                          className="self-center [@media(orientation:landscape)]:block hidden"
+                        >
+                          View
+                        </Button>
                       )}
-
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        onClick={() => onSessionSelect(session)}
-                        className="self-center"
-                      >
-                        View
-                      </Button>
                     </div>
+                  </div>
+                  <div className="hidden [@media(orientation:portrait)]:flex flex-col items-center">
+                    {!isActive && (
+                      <div className="[@media(orientation:portrait)_and_(max-width:480px)]:block hidden">
+                        <StatsText stats={stats}></StatsText>
+                      </div>
+                    )}
+
+                    {!isActive && (
+                      <div className="w-full pt-2">
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={() => onSessionSelect(session)}
+                          className="block w-full"
+                        >
+                          View
+                        </Button>
+                      </div>
+                    )}
+                    {isActive && (
+                      <div className="w-full block pt-2 [@media(orientation:portrait)_and_(max-width:481px)]:block hidden">
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={() => {
+                            handleEndSession(session.id);
+                          }}
+                          className="self-center w-full "
+                        >
+                          End Session
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

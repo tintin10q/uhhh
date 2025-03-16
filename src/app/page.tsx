@@ -89,20 +89,20 @@ export default function Home() {
     loadSessions();
     setActiveSessionId(sessionId);
     setActiveTab("active");
-  };
+  }
 
   // Handle session end
   function handleSessionEnd() {
     loadSessions();
     setActiveSessionId(null);
     setActiveTab("dashboard");
-  };
+  }
 
   // Handle session selection for viewing stats
-  function handleSessionSelect(session: SessionData)  {
+  function handleSessionSelect(session: SessionData) {
     setSelectedSession(session);
     setActiveTab("stats");
-  };
+  }
 
   // Get the active session
   const activeSession = sessions.find((s) => s.id === activeSessionId);
@@ -118,14 +118,14 @@ export default function Home() {
             <ThemeToggle />
             <a href="https://github.com/tintin10q/uhhh" target="_blank">
               <Button variant="outline" size="icon" className="rounded-full">
-            <Github className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-360 dark:scale-100" />
-            <span className="sr-only">Open Github</span>
-          </Button>
+                <Github className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-360 dark:scale-100" />
+                <span className="sr-only">Open Github</span>
+              </Button>
             </a>
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight">
-              Filler Word Counter
+              Filler Words Counter
             </h1>
             <p className="text-muted-foreground mt-2">
               Track &ldquo;uhh&rdquo; filler words during public speaking
@@ -156,7 +156,10 @@ export default function Home() {
               </TabsList>
 
               {!activeSessionId && (
-                <Button onClick={() => setActiveTab("new")}>
+                <Button
+                  onClick={() => setActiveTab("new")}
+                  className="[@media(max-width:374px)]:hidden"
+                >
                   Start New Session
                 </Button>
               )}
