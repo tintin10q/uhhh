@@ -116,10 +116,12 @@ export default function Home() {
         <header className="mb-8">
           <div className="flex justify-end gap-2 mb-4">
             <ThemeToggle />
-          <Button variant="outline" size="icon" className="rounded-full" onClick={() => window.open("https://github.com/tintin10q/uhhh", "_blank")}>
+            <a href="https://github.com/tintin10q/uhhh" target="_blank">
+              <Button variant="outline" size="icon" className="rounded-full">
             <Github className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-360 dark:scale-100" />
             <span className="sr-only">Open Github</span>
           </Button>
+            </a>
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight">
