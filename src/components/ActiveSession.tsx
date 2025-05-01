@@ -92,7 +92,9 @@ export default function ActiveSession({
         handleUhhClick();
         event.preventDefault();
       }
-      else if ((event.key === ' ' || event.key === 'Enter') && event.target?.nodeName === "BODY") {
+      else if ((event.key === ' ' || event.key === 'Enter') &&
+                event.target instanceof HTMLElement &&
+                event.target.nodeName === "BODY") {
         handleUhhClick();
       }
     }
