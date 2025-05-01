@@ -85,6 +85,25 @@ export default function ActiveSession({
     onSessionEnd();
   }, [session.id, onSessionEnd]);
 
+  // Shortcut to press uhh using the keyboard
+  useEffect(() => {
+    function downHandler(event: KeyboardEvent) {
+      if (event.key === 'u') {
+        handleUhhClick();
+        event.preventDefault();
+      }
+      else if ((event.key === ' ' || event.key === 'Enter') && event.target?.nodeName === "BODY") {
+        handleUhhClick();
+      }
+    }
+
+    window.addEventListener('keydown', downHandler);
+
+      // Clean up event listeners
+      return () => {window.removeEventListener('keydown', downHandler);};
+    }, []);
+
+
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardContent className="space-y-6">
@@ -115,6 +134,8 @@ export default function ActiveSession({
         />
         <div className="[@media(orientation:landscape)_and_(max-height:415px)]:block hidden">
           <Button
+            aria-label="Count uhh button"
+            aria-keyshortcuts="u"
             className="h-full text-2xl font-bold bg-red-400 hover:bg-red-500 dark:bg-blue-400 hover:dark:bg-blue-500 h-full"
             onClick={handleUhhClick}
           >
@@ -126,6 +147,8 @@ export default function ActiveSession({
         <div className="pt-4 [@media(orientation:landscape)_and_(max-height:415px)]:hidden">
           <Button
             size="lg"
+            aria-label="Count uhh button"
+            aria-keyshortcuts="u"
             className="h-24 text-2xl  font-bold bg-red-400 hover:bg-red-500 dark:bg-blue-400 hover:dark:bg-blue-500 w-full"
             onClick={handleUhhClick}
           >

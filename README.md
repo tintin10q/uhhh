@@ -32,6 +32,7 @@ The point is that the person who records the filler words improves by listening 
    - Detection if you forgot to stop a session
 - **Responsive Design**: Works on desktop and mobile devices
 - **Dark/Light Mode**: Supports system theme preferences
+- **Shortcuts to count a filler word**: `u`, `Space` or `Enter` 
 
 ## Getting Started
 
