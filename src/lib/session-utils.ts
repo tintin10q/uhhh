@@ -18,9 +18,28 @@ export function saveSessions(sessions: SessionData[]): void {
 // Get sessions from localStorage
 export function getSessions(): SessionData[] {
   if (typeof window !== "undefined") {
+    // Get protocol id
     const data = localStorage.getItem(STORAGE_KEY);
     if (data) {
-      return JSON.parse(data);
+        // Add missing indexes if there are not any
+      let parsed : SessionData[] = JSON.parse(data);
+      let version = localStorage.getItem("version");
+      const latestVersion = "1";
+      const versionChange = version === latestVersion;
+
+       if (versionChange) {
+           if (version === null) { // Update from null to 1
+               parsed = parsed.map(((session, index) => { session.index = index; return session; }));
+               version = "1";
+           }
+           if (version === "1") {} // etc as long as you set the version to the next one each time
+           if (version === "2") {} // just an example
+
+           localStorage.setItem("version", latestVersion);
+           saveSessions(parsed);
+      }
+
+      return parsed;
     }
   }
   return [];
@@ -38,17 +57,17 @@ export function endCurrentActiveSession() {
 }
 // Create a new session
 export function createSession(name: string): SessionData {
-  const newSession: SessionData = {
-    id: generateId(),
-    name,
-    startTime: Date.now(),
-    endTime: null,
-    events: [],
-  };
-
-  const sessions = getSessions();
-  sessions.push(newSession);
-  saveSessions(sessions);
+    const sessions = getSessions();
+    const newSession: SessionData = {
+        id: generateId(),
+        name,
+        startTime: Date.now(),
+        endTime: null,
+        events: [],
+        index: sessions.length,
+      };
+   sessions.push(newSession);
+   saveSessions(sessions);
 
   return newSession;
 }

@@ -9,6 +9,9 @@ export interface SessionData {
   startTime: number;
   endTime: number | null;
   events: FillerWordEvent[];
+  // Version 2
+  // which session this is used for the arrows
+  index: number;
 }
 
 export interface SessionStats {

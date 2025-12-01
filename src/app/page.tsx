@@ -13,6 +13,8 @@ import NewSessionForm from "@/components/NewSessionForm";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Github } from "lucide-react";
 import { NoScript } from "@/components/NoScript";
+import {LeftArrow} from "next/dist/client/components/react-dev-overlay/ui/icons/left-arrow";
+import {RightArrow} from "next/dist/client/components/react-dev-overlay/ui/icons/right-arrow";
 
 export default function Home() {
   const [sessions, setSessions] = useState<SessionData[]>([]);
@@ -187,6 +189,11 @@ export default function Home() {
 
           <TabsContent value="stats" className="mt-0">
             {selectedSession && <SessionStats session={selectedSession} />}
+              <div className="flex justify-center pt-4 items-center">
+                  <Button size="icon" disabled={selectedSession?.index + 1 <= 1} variant="outline" onClick={() => setSelectedSession(sessions[selectedSession?.index -1])}><LeftArrow/></Button>
+                  <div style={{width: "4rem"}} className="text-center flex justify-center ">{selectedSession?.index + 1}/{sessions.length}</div>
+                  <Button size="icon" disabled={selectedSession?.index + 1 === sessions.length} onClick={() => setSelectedSession(sessions[selectedSession?.index +1])} variant="outline"><RightArrow/></Button>
+              </div>
           </TabsContent>
 
           {!activeSessionId && (
