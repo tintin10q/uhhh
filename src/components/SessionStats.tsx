@@ -40,7 +40,8 @@ export default function SessionStats({ session }: SessionStatsProps) {
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle><span className='text-md font-bold pr-2'>Session Statistics: {session.name}</span>
+        <CardTitle className="flex justify-between items-center">
+            <span className='text-md font-bold pr-2 text-3xl'>{session.name}</span>
         {typeof window !== 'undefined' && window.innerWidth < 520 && <br></br>}
         <span className="text-sm text-muted-foreground">
           {session.endTime && sameday ? <span>{formatDate(session.startTime)} {formatTime(session.startTime)} till {formatTime(session.endTime)}</span> 
