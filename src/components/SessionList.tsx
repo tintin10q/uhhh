@@ -28,12 +28,14 @@ interface SessionListProps {
   sessions: SessionData[];
   onSessionSelect: (session: SessionData) => void;
   onSessionsChange: () => void;
+  viewAllTab: () => void,
 }
 
 export default function SessionList({
   sessions,
   onSessionSelect,
   onSessionsChange,
+  viewAllTab,
 }: SessionListProps) {
   // Sort sessions by start time (newest first)
   const sortedSessions = useMemo(() => {
@@ -64,14 +66,21 @@ export default function SessionList({
         <CardTitle>
           <div className="flex justify-between align-middle items-center">
             <span className="self-center text-2xl">Session History</span>
-            {sessions.length > 2 && (
-              <div className="self-end">
+            {sessions.length > 1 && (
+              <div className="self-end flex gap-2">
+                  <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={viewAllTab}
+                  >
+                      View All
+                  </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-muted-foreground hover:text-destructive"
+                      className="text-destructive"
                     >
                       Delete All
                     </Button>
@@ -86,7 +95,7 @@ export default function SessionList({
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className="hover:text-destructive"
+                        className="bg-destructive"
                         onClick={() => handleDeleteAllSessions()}
                       >
                         Delete All
@@ -126,38 +135,14 @@ export default function SessionList({
                             Active
                           </span>
                         ) : (
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 className="ml-2 h-6 w-6 text-muted-foreground hover:text-destructive"
+                                onClick={() => handleDeleteSession(session.id)}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Are you sure?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This will permanently delete the session
-                                  &ldquo;{session.name}&rdquo; and all its data.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() =>
-                                    handleDeleteSession(session.id)
-                                  }
-                                >
-                                  Delete
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
                         )}
                       </h3>
                       <div className="text-xs text-muted-foreground">

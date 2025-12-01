@@ -19,9 +19,7 @@ import {RightArrow} from "next/dist/client/components/react-dev-overlay/ui/icons
 export default function Home() {
   const [sessions, setSessions] = useState<SessionData[]>([]);
   const [activeTab, setActiveTab] = useState<string>("dashboard");
-  const [selectedSession, setSelectedSession] = useState<SessionData | null>(
-    null
-  );
+  const [selectedSession, setSelectedSession] = useState<SessionData | null>(null);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
   // Close an active session if it's the first time the page is opened
@@ -67,9 +65,7 @@ export default function Home() {
   }, [activeTab]);
 
   // Load sessions on initial render
-  useEffect(() => {
-    loadSessions();
-  }, [loadSessions]);
+  useEffect(() => loadSessions(), [loadSessions]);
 
   // Update activeTab if it's 'new' and there's an active session
   useEffect(() => {
@@ -174,6 +170,7 @@ export default function Home() {
                 sessions={sessions}
                 onSessionSelect={handleSessionSelect}
                 onSessionsChange={loadSessions}
+                viewAllTab={() => setActiveTab("all")}
               />
             </TabsContent>
           )}
@@ -201,6 +198,12 @@ export default function Home() {
               <NewSessionForm onSessionCreated={handleSessionCreated} />
             </TabsContent>
           )}
+
+            <TabsContent value="all" className="mt-0">
+                {!sessions.length ? (<div className="flex justify-center"><span className="text-muted-foreground">No sessions yet to display...</span></div>) :
+                    <div className="flex flex-wrap gap-3">{sessions.map(session => <SessionStats key={session.id} session={session} />)}</div>}
+            </TabsContent>
+
         </Tabs>
 
         <div className="p-8"></div>
