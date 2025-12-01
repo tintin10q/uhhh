@@ -186,7 +186,7 @@ export default function Home() {
 
           <TabsContent value="stats" className="mt-0">
             {selectedSession && <SessionStats session={selectedSession} />}
-              {selectedSession?.index && <div className="flex justify-center pt-4 items-center">
+              {typeof selectedSession?.index === "number" && <div className="flex justify-center pt-4 items-center">
                   <Button size="icon" disabled={selectedSession.index + 1 <= 1} variant="outline" onClick={() => setSelectedSession(sessions[selectedSession.index -1 ])}><LeftArrow/></Button>
                   <div style={{width: "4rem"}} className="text-center flex justify-center ">{selectedSession?.index + 1}/{sessions.length}</div>
                   <Button size="icon" disabled={selectedSession.index + 1 === sessions.length} onClick={() => setSelectedSession(sessions[selectedSession.index +1])} variant="outline"><RightArrow/></Button>
@@ -200,8 +200,11 @@ export default function Home() {
           )}
 
             <TabsContent value="all" className="mt-0">
-                {!sessions.length ? (<div className="flex justify-center"><span className="text-muted-foreground">No sessions yet to display...</span></div>) :
-                    <div className="flex flex-wrap gap-3">{sessions.map(session => <SessionStats key={session.id} session={session} />)}</div>}
+                {sessions.length ?
+                    <div className="flex flex-wrap gap-3">{sessions.map(session => <SessionStats key={session.id} session={session} />)}</div>
+                    :
+                    <div className="flex justify-center"><span className="text-muted-foreground">No sessions yet to display...</span></div>
+                }
             </TabsContent>
 
         </Tabs>
