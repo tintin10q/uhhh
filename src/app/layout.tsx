@@ -5,9 +5,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const description = "Track and analyze filler words like 'uhh' during public speaking to improve your communication skills.";
+const title = "Uhh Counter - Track Uhh in Public Speaking";
+
 export const metadata: Metadata = {
-  title: "Uhh Counter - Track Uhh in Public Speaking",
-  description: "Track and analyze filler words like 'uhh' during public speaking to improve your communication skills.",
+  title,
+  description,
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '48x48' },
@@ -27,6 +30,17 @@ export const metadata: Metadata = {
   },
   creator: "Quinten Cabo",
   keywords: ['public speaking', 'filler words', 'uhh counter', 'speech analysis', 'communication skills'],
+  openGraph: {
+      type: "website",
+      description,
+      title,
+      locale: "en-GB",
+      images: [
+          {url:"/icon.png", width: 192, height:192, "type": "image/png"},
+          {url:"/apple-touch-icon.png", width: 180, height:180, "type": "image/png"}
+      ],
+      tags: [""]
+  },
 };
 
 export const viewport : Viewport = {
