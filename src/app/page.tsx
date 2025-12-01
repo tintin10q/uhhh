@@ -186,11 +186,11 @@ export default function Home() {
 
           <TabsContent value="stats" className="mt-0">
             {selectedSession && <SessionStats session={selectedSession} />}
-              <div className="flex justify-center pt-4 items-center">
-                  <Button size="icon" disabled={selectedSession?.index + 1 <= 1} variant="outline" onClick={() => setSelectedSession(sessions[selectedSession?.index -1])}><LeftArrow/></Button>
+              {selectedSession?.index && <div className="flex justify-center pt-4 items-center">
+                  <Button size="icon" disabled={selectedSession.index + 1 <= 1} variant="outline" onClick={() => setSelectedSession(sessions[selectedSession.index -1 ])}><LeftArrow/></Button>
                   <div style={{width: "4rem"}} className="text-center flex justify-center ">{selectedSession?.index + 1}/{sessions.length}</div>
-                  <Button size="icon" disabled={selectedSession?.index + 1 === sessions.length} onClick={() => setSelectedSession(sessions[selectedSession?.index +1])} variant="outline"><RightArrow/></Button>
-              </div>
+                  <Button size="icon" disabled={selectedSession.index + 1 === sessions.length} onClick={() => setSelectedSession(sessions[selectedSession.index +1])} variant="outline"><RightArrow/></Button>
+              </div>}
           </TabsContent>
 
           {!activeSessionId && (
