@@ -25,7 +25,7 @@ export function getSessions(): SessionData[] {
       let parsed : SessionData[] = JSON.parse(data);
       let version = localStorage.getItem("version");
       const latestVersion = "1";
-      const versionChange = version === latestVersion;
+      const versionChange = version !== latestVersion;
 
        if (versionChange) {
            if (version === null) { // Update from null to 1
